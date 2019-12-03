@@ -24,7 +24,7 @@
  * 2. Kills: players get points for 10% of killed monsters.
  * 3. Secrets: finding a secret gives 250 points.
  * 4. Map items: collecting an item that counts for item counts gives 5 points.
- *
+ * 5. Barrels: destroying an explosive barrel gives 5 points.
  *
  */
 class zc_Dispatcher : EventHandler
@@ -49,7 +49,7 @@ class zc_Dispatcher : EventHandler
   override
   void WorldThingDamaged(WorldEvent event)
   {
-    _counter.countDamage(event.damage, event.damageSource);
+    _counter.countDamage(event.thing, event.damage, event.damageSource);
   }
 
   override

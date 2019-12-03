@@ -28,9 +28,9 @@ class zc_Counter
   }
 
   play
-  void countDamage(int damage, Actor inflictor)
+  void countDamage(Actor damaged, int damage, Actor inflictor)
   {
-    if (isMe(inflictor))
+    if (damaged && damaged.bIsMonster && isMe(inflictor))
     {
       addPoints(damage);
     }
@@ -41,7 +41,14 @@ class zc_Counter
   {
     if (died && isMe(died.target))
     {
-      addPoints(died.SpawnHealth() / 10);
+      if (died.bIsMonster)
+      {
+        addPoints(died.SpawnHealth() / 10);
+      }
+      else if (died is "ExplosiveBarrel")
+      {
+        addPoints(5);
+      }
     }
   }
 
