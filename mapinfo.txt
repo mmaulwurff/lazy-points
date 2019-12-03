@@ -1,0 +1,6 @@
+gameinfo
+{
+
+  AddEventHandlers = "zc_Dispatcher"
+
+}
