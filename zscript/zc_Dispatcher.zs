@@ -23,6 +23,8 @@
  * 1. Damage: players get points for the amount of damage they inflict on monsters.
  * 2. Kills: players get points for 10% of killed monsters.
  * 3. Secrets: finding a secret gives 250 points.
+ * 4. Map items: collecting an item that counts for item counts gives 5 points.
+ *
  *
  */
 class zc_Dispatcher : EventHandler
@@ -35,6 +37,7 @@ class zc_Dispatcher : EventHandler
   {
     _view    = new("zc_View").init();
     _counter = new("zc_Counter").init(consolePlayer);
+    _spawner = new("zc_Spawner").init();
   }
 
   override
@@ -61,9 +64,16 @@ class zc_Dispatcher : EventHandler
     _counter.countSecrets();
   }
 
+  override
+  void WorldThingSpawned(WorldEvent event)
+  {
+    _spawner.spawnScoreFor(event.thing);
+  }
+
 // private: ////////////////////////////////////////////////////////////////////
 
   private zc_View    _view;
   private zc_Counter _counter;
+  private zc_Spawner _spawner;
 
 } // class zc_Dispatcher
