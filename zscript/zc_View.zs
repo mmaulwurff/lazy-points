@@ -27,14 +27,15 @@ class zc_View
   }
 
   ui
-  void show()
+  int show(int y)
   {
     if (!_player.mo)
     {
-      return;
+      return 0;
     }
 
     console.printf("%d", _player.mo.score);
+    return 0;
   }
 
 // private: ////////////////////////////////////////////////////////////////////

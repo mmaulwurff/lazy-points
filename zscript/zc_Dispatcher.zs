@@ -48,9 +48,11 @@ class zc_Dispatcher : EventHandler
   override
   void RenderOverlay(RenderEvent event)
   {
-    _view.show();
-    _timerView.show();
-    _timerBonusView.show();
+    int y = MARGIN;
+
+    y += _view          .show(y);
+    y += _timerView     .show(y);
+    y += _timerBonusView.show(y);
   }
 
   override
@@ -81,6 +83,8 @@ class zc_Dispatcher : EventHandler
 // private: ////////////////////////////////////////////////////////////////////
 
   const TICKS_IN_SECOND = 35;
+
+  const MARGIN = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
 

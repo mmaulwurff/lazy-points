@@ -53,6 +53,11 @@ class zc_Timer
     return _currentCount;
   }
 
+  int getMaxCount() const
+  {
+    return _count;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////
 
   private int _count;

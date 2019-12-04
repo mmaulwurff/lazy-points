@@ -28,9 +28,10 @@ class zc_TimerBonusView
   }
 
   ui
-  void show()
+  int show(int y)
   {
     console.printf("b: %d", _timerBonus.getBonus());
+    return 0;
   }
 
 // private: ////////////////////////////////////////////////////////////////////

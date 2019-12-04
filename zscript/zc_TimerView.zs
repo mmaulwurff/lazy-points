@@ -28,10 +28,28 @@ class zc_TimerView
   }
 
   ui
-  void show()
+  int show(int y)
   {
-    console.printf("t: %d", _timer.getCount());
+    int    screenWidth  = Screen.GetWidth();
+    double ratio        = double(_timer.GetCount()) / _timer.GetMaxCount();
+    int    middleWidth  = screenWidth / 2;
+    int    halfBarWidth = round(screenWidth / 8 * ratio);
+
+    y += MARGIN;
+
+    Screen.DrawThickLine( middleWidth - halfBarWidth, y
+                        , middleWidth + halfBarWidth, y
+                        , BAR_THICKNESS, BAR_COLOR
+                        );
+
+    return BAR_THICKNESS;
   }
+
+// private: ////////////////////////////////////////////////////////////////////
+
+  const BAR_THICKNESS = 2.0;
+  const BAR_COLOR     = "gray";
+  const MARGIN        = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
 
