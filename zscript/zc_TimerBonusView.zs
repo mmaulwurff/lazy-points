@@ -30,9 +30,27 @@ class zc_TimerBonusView
   ui
   int show(int y)
   {
-    console.printf("b: %d", _timerBonus.getBonus());
-    return 0;
+    int lineHeight = BigFont.GetHeight() * CleanYFac_1;
+    y += MARGIN + lineHeight / 2;
+
+    int bonus = _timerBonus.getBonus();
+
+    if (bonus == 0)
+    {
+      return 0;
+    }
+
+    String bonusString = String.Format("+%d", bonus);
+    int    bonusWidth  = BigFont.StringWidth(bonusString) * CleanXFac_1;
+    int    x           = (Screen.GetWidth() - bonusWidth) / 2;
+    Screen.DrawText(BigFont, Font.CR_Blue, x, y, bonusString, DTA_CleanNoMove_1, true);
+
+    return lineHeight * 2;
   }
+
+// private: ////////////////////////////////////////////////////////////////////
+
+  const MARGIN = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
 

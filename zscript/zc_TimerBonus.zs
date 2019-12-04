@@ -28,15 +28,18 @@ class zc_TimerBonus
     return self;
   }
 
-  int getUpdatedBonus()
+  void update()
   {
-    _bonus =(_timer.getCount())
-      ? min(MAX_TIMER_BONUS, _bonus + TIMER_BONUS_STEP)
-      : 0;
+    if (!_timer.getCount())
+    {
+      _bonus = 0;
+    }
+  }
 
+  void registerKill()
+  {
+    _bonus = min(MAX_TIMER_BONUS, _bonus + TIMER_BONUS_STEP);
     _timer.reset();
-
-    return _bonus;
   }
 
   int getBonus() const

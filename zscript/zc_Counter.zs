@@ -77,9 +77,13 @@ class zc_Counter
   private play
   int calculatePointsFor(Actor died)
   {
-    return died.bIsMonster
-      ? (died.SpawnHealth() / 10 + _timerBonus.getUpdatedBonus())
+    int result = died.bIsMonster
+      ? (died.SpawnHealth() / 10 + _timerBonus.getBonus())
       : 5;
+
+    _timerBonus.registerKill();
+
+    return result;
   }
 
 // private: ////////////////////////////////////////////////////////////////////

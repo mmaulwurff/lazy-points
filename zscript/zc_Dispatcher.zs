@@ -71,7 +71,9 @@ class zc_Dispatcher : EventHandler
   void WorldTick()
   {
     _counter.countSecrets();
-    _timer.update();
+
+    _timer     .update();
+    _timerBonus.update();
   }
 
   override
