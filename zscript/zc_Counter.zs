@@ -20,10 +20,12 @@ class zc_Counter
 
 // public: /////////////////////////////////////////////////////////////////////
 
-  zc_Counter init(int playerNumber)
+  zc_Counter init(int playerNumber, zc_TimerBonus timerBonus)
   {
     _player         = players[playerNumber];
     _oldSecretCount = 0;
+    _timerBonus     = timerBonus;
+
     return self;
   }
 
@@ -39,17 +41,12 @@ class zc_Counter
   play
   void countDeath(Actor died)
   {
-    if (died && isMe(died.target))
+    if (!(died && isMe(died.target)))
     {
-      if (died.bIsMonster)
-      {
-        addPoints(died.SpawnHealth() / 10);
-      }
-      else if (died is "ExplosiveBarrel")
-      {
-        addPoints(5);
-      }
+      return;
     }
+
+    addPoints(calculatePointsFor(died));
   }
 
   play
@@ -65,20 +62,30 @@ class zc_Counter
 
 // private: ////////////////////////////////////////////////////////////////////
 
+  private
   bool isMe(Actor other)
   {
     return (other && other == _player.mo);
   }
 
-  play
+  private play
   void addPoints(int points)
   {
     _player.mo.score += points;
   }
 
+  private play
+  int calculatePointsFor(Actor died)
+  {
+    return died.bIsMonster
+      ? (died.SpawnHealth() / 10 + _timerBonus.getUpdatedBonus())
+      : 5;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////
 
-  private PlayerInfo _player;
-  private int        _oldSecretCount;
+  private PlayerInfo    _player;
+  private int           _oldSecretCount;
+  private zc_TimerBonus _timerBonus;
 
 } // class zc_Counter

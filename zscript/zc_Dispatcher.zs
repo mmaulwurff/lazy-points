@@ -21,11 +21,11 @@
  * Scoring:
  *
  * 1. Damage: players get points for the amount of damage they inflict on monsters.
- * 2. Kills: players get points for 10% of killed monsters.
- * 3. Secrets: finding a secret gives 250 points.
- * 4. Map items: collecting an item that counts for item counts gives 5 points.
- * 5. Barrels: destroying an explosive barrel gives 5 points.
- *
+ * 2. Kills: players get points for 10% of killed monsters;
+ * 3. Chain kills: 10 points for each monster killed in 3 seconds after previous kill.
+ * 4. Secrets: finding a secret gives 250 points.
+ * 5. Map items: collecting an item that counts for item counts gives 5 points.
+ * 6. Barrels: destroying an explosive barrel gives 5 points.
  */
 class zc_Dispatcher : EventHandler
 {
@@ -35,15 +35,22 @@ class zc_Dispatcher : EventHandler
   override
   void OnRegister()
   {
-    _view    = new("zc_View").init();
-    _counter = new("zc_Counter").init(consolePlayer);
-    _spawner = new("zc_Spawner").init();
+    _timer      = new("zc_Timer"     ).init(TICKS_IN_SECOND * 3);
+    _timerBonus = new("zc_TimerBonus").init(_timer);
+    _counter    = new("zc_Counter"   ).init(consolePlayer, _timerBonus);
+    _spawner    = new("zc_Spawner"   ).init();
+
+    _view           = new("zc_View"          ).init();
+    _timerView      = new("zc_TimerView"     ).init(_timer);
+    _timerBonusView = new("zc_TimerBonusView").init(_timerBonus);
   }
 
   override
   void RenderOverlay(RenderEvent event)
   {
     _view.show();
+    _timerView.show();
+    _timerBonusView.show();
   }
 
   override
@@ -62,6 +69,7 @@ class zc_Dispatcher : EventHandler
   void WorldTick()
   {
     _counter.countSecrets();
+    _timer.update();
   }
 
   override
@@ -72,8 +80,16 @@ class zc_Dispatcher : EventHandler
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  private zc_View    _view;
-  private zc_Counter _counter;
-  private zc_Spawner _spawner;
+  const TICKS_IN_SECOND = 35;
+
+// private: ////////////////////////////////////////////////////////////////////
+
+  private zc_View           _view;
+  private zc_Counter        _counter;
+  private zc_Spawner        _spawner;
+  private zc_Timer          _timer;
+  private zc_TimerView      _timerView;
+  private zc_TimerBonus     _timerBonus;
+  private zc_TimerBonusView _timerBonusView;
 
 } // class zc_Dispatcher
