@@ -39,6 +39,11 @@ class zc_Dispatcher : EventHandler
   override
   void RenderOverlay(RenderEvent event)
   {
+    if (gamestate == gs_TitleLevel)
+    {
+      return;
+    }
+
     int y = MARGIN;
 
     y += _view          .show(y);
