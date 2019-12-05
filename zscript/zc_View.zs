@@ -31,7 +31,7 @@ class zc_View
   ui
   int show(int y)
   {
-    int lineHeight = BigFont.GetHeight() * CleanYFac_1;
+    int lineHeight = OriginalBigFont.GetHeight() * CleanYFac_1;
 
     if (!_player.mo)
     {
@@ -43,9 +43,9 @@ class zc_View
     _interpolator.update(_player.mo.score);
 
     String scoreString = String.Format("%d", _interpolator.getValue());
-    int    scoreWidth  = BigFont.StringWidth(scoreString) * CleanXFac_1;
+    int    scoreWidth  = OriginalBigFont.StringWidth(scoreString) * CleanXFac_1;
     int    x           = (Screen.GetWidth() - scoreWidth) / 2;
-    Screen.DrawText(BigFont, Font.CR_Blue, x, y, scoreString, DTA_CleanNoMove_1, true);
+    Screen.DrawText(OriginalBigFont, Font.CR_Blue, x, y, scoreString, DTA_CleanNoMove_1, true);
 
     return lineHeight * 2;
   }
