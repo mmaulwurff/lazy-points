@@ -2,7 +2,7 @@
 
 set -e
 
-name=zcore
+name=lazy-points
 version=$(git describe --abbrev=0 --tags)
 filename=$name-$version.pk3
 
