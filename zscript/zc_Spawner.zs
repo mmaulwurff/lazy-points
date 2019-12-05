@@ -30,7 +30,11 @@ class zc_Spawner
   {
     if (thing && thing.bCountItem)
     {
-      Actor.Spawn("zc_MapScoreItem", thing.pos);
+      zc_MapScoreItem(Actor.Spawn("zc_MapScoreItem", thing.pos)).init(5);
+    }
+    else if (thing is "Key")
+    {
+      zc_MapScoreItem(Actor.Spawn("zc_MapScoreItem", thing.pos)).init(250);
     }
   }
 

@@ -20,9 +20,15 @@ class zc_MapScoreItem : ScoreItem
 
 // public: /////////////////////////////////////////////////////////////////////
 
+  zc_MapScoreItem init(int n)
+  {
+    amount = n;
+
+    return self;
+  }
+
   Default
   {
-    Inventory.Amount 5;
     -CountItem;
     +Inventory.Quiet;
   }
