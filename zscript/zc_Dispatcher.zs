@@ -39,8 +39,8 @@ class zc_Dispatcher : EventHandler
   override
   void PlayerDisconnected(PlayerEvent event)
   {
-    int playerNumber = event.playerNumber;
-    uint nPlayers = _playerScores.size();
+    int  playerNumber = event.playerNumber;
+    uint nPlayers     = _playerScores.size();
     for (uint i = 0; i < nPlayers; ++i)
     {
       if (playerNumber == _playerScores[i].getPlayerNumber())

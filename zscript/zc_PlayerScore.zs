@@ -23,6 +23,8 @@ class zc_PlayerScore
 
   zc_PlayerScore init(int playerNumber)
   {
+    _playerNumber = playerNumber;
+
     _timer       = new("zc_Timer"      ).init(TICKS_IN_SECOND * 3);
     _timerBonus  = new("zc_TimerBonus" ).init(_timer);
     _healthBonus = new("zc_HealthBonus").init(playerNumber);
@@ -33,6 +35,7 @@ class zc_PlayerScore
       _view      = new("zc_View"     ).init();
       _timerView = new("zc_TimerView").init(_timer);
       _bonusView = new("zc_BonusView").init(_timerBonus, _healthBonus);
+      _tallyView = new("zc_TallyView").init();
     }
 
     return self;
@@ -51,6 +54,7 @@ class zc_PlayerScore
     y += _view     .show(y);
     y += _timerView.show(y, fracTic);
     y += _bonusView.show(y);
+    y += _tallyView.show(y);
   }
 
   play
@@ -97,5 +101,6 @@ class zc_PlayerScore
   private zc_View        _view;
   private zc_TimerView   _timerView;
   private zc_BonusView   _bonusView;
+  private zc_TallyView   _tallyView;
 
 } // class zc_PlayerScore
