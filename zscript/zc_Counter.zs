@@ -83,7 +83,7 @@ class zc_Counter
       ? (died.SpawnHealth() / 10 + _timerBonus.getBonus())
       : 5;
 
-    result *= _healthBonus.getMultiplier();
+    result *= int(round(_healthBonus.getMultiplier()));
 
     _timerBonus.registerKill();
 

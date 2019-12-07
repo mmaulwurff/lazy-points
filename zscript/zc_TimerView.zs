@@ -34,7 +34,7 @@ class zc_TimerView
     int    screenWidth  = Screen.GetWidth();
     double ratio        = double(_timer.GetCount()) / _timer.GetMaxCount();
     int    middleWidth  = screenWidth / 2;
-    int    halfBarWidth = round(screenWidth / 8 * ratio);
+    int    halfBarWidth = int(round(screenWidth / 8 * ratio));
 
     y += MARGIN;
 
