@@ -39,7 +39,6 @@ class zc_HealthBonus
   double getMultiplier()
   {
     int healthPercent = _player.health * 100 / _player.mo.GetMaxHealth();
-    console.printf("%: %d", healthPercent);
 
     if      (healthPercent >= 100) return 2.0;
     else if (healthPercent >=  50) return 1.5;

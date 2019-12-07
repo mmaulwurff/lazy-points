@@ -27,51 +27,68 @@ class zc_Dispatcher : EventHandler
   override
   void OnRegister()
   {
-    _timer       = new("zc_Timer"      ).init(TICKS_IN_SECOND * 3);
-    _timerBonus  = new("zc_TimerBonus" ).init(_timer);
-    _healthBonus = new("zc_HealthBonus").init(consolePlayer);
-    _counter     = new("zc_Counter"    ).init(consolePlayer, _timerBonus, _healthBonus);
-    _spawner     = new("zc_Spawner"    ).init();
+    _spawner = new("zc_Spawner").init();
+  }
 
-    _view        = new("zc_View"       ).init();
-    _timerView   = new("zc_TimerView"  ).init(_timer);
-    _bonusView   = new("zc_BonusView"  ).init(_timerBonus, _healthBonus);
+  override
+  void PlayerEntered(PlayerEvent event)
+  {
+    _playerScores.push(new("zc_PlayerScore").init(event.playerNumber));
+  }
+
+  override
+  void PlayerDisconnected(PlayerEvent event)
+  {
+    int playerNumber = event.playerNumber;
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
+    {
+      if (playerNumber == _playerScores[i].getPlayerNumber())
+      {
+        _playerScores.delete(i);
+        return;
+      }
+    }
   }
 
   override
   void RenderOverlay(RenderEvent event)
   {
-    if (gamestate == gs_TitleLevel)
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
     {
-      return;
+      _playerScores[i].show();
     }
-
-    int y = MARGIN;
-
-    y += _view     .show(y);
-    y += _timerView.show(y);
-    y += _bonusView.show(y);
   }
 
   override
   void WorldThingDamaged(WorldEvent event)
   {
-    _counter.countDamage(event.thing, event.damage, event.damageSource);
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
+    {
+      _playerScores[i].countDamage(event.thing, event.damage, event.damageSource);
+    }
   }
 
   override
   void WorldThingDied(WorldEvent event)
   {
-    _counter.countDeath(event.thing);
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
+    {
+      _playerScores[i].countDeath(event.thing);
+    }
   }
 
   override
   void WorldTick()
   {
-    _counter.countSecrets();
-
-    _timer     .update();
-    _timerBonus.update();
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
+    {
+      _playerScores[i].tick();
+    }
   }
 
   override
@@ -82,20 +99,8 @@ class zc_Dispatcher : EventHandler
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  const TICKS_IN_SECOND = 35;
+  private zc_Spawner _spawner;
 
-  const MARGIN = 10;
-
-// private: ////////////////////////////////////////////////////////////////////
-
-  private zc_Counter     _counter;
-  private zc_Spawner     _spawner;
-  private zc_Timer       _timer;
-  private zc_TimerBonus  _timerBonus;
-  private zc_HealthBonus _healthBonus;
-
-  private zc_View        _view;
-  private zc_TimerView   _timerView;
-  private zc_BonusView   _bonusView;
+  private Array<zc_PlayerScore> _playerScores;
 
 } // class zc_Dispatcher
