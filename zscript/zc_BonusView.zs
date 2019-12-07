@@ -16,14 +16,15 @@
  * Lazy Points.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class zc_TimerBonusView
+class zc_BonusView
 {
 
 // public: /////////////////////////////////////////////////////////////////////
 
-  zc_TimerBonusView init(zc_TimerBonus timerBonus)
+  zc_BonusView init(zc_TimerBonus timerBonus, zc_HealthBonus healthBonus)
   {
-    _timerBonus = timerBonus;
+    _timerBonus  = timerBonus;
+    _healthBonus = healthBonus;
 
     return self;
   }
@@ -34,16 +35,28 @@ class zc_TimerBonusView
     int lineHeight = OriginalBigFont.GetHeight() * CleanYFac_1;
     y += MARGIN + lineHeight / 2;
 
-    int bonus = _timerBonus.getBonus();
+    int    bonus      = _timerBonus.getBonus();
+    double multiplier = _healthBonus.getMultiplier();
 
-    if (bonus == 0)
+    if (bonus == 0 && multiplier == 1.0)
     {
       return 0;
     }
 
-    String bonusString = String.Format("+%d", bonus);
-    int    bonusWidth  = OriginalBigFont.StringWidth(bonusString) * CleanXFac_1;
-    int    x           = (Screen.GetWidth() - bonusWidth) / 2;
+    String bonusString;
+    if (bonus)
+    {
+      bonusString.appendFormat("+%d", bonus);
+    }
+
+    if (multiplier != 1.0)
+    {
+      if (bonusString.length()) bonusString.appendFormat(" ");
+      bonusString.appendFormat("x%.1f", multiplier);
+    }
+
+    int bonusWidth = OriginalBigFont.StringWidth(bonusString) * CleanXFac_1;
+    int x          = (Screen.GetWidth() - bonusWidth) / 2;
     Screen.DrawText(OriginalBigFont, Font.CR_Blue, x, y, bonusString, DTA_CleanNoMove_1, true);
 
     return lineHeight * 2;
@@ -55,6 +68,7 @@ class zc_TimerBonusView
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  private zc_TimerBonus _timerBonus;
+  private zc_TimerBonus  _timerBonus;
+  private zc_HealthBonus _healthBonus;
 
-} // class zc_TimerBonusView
+} // class zc_BonusView

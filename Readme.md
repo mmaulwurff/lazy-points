@@ -10,9 +10,12 @@ Scoring:
 4. Secrets: finding a secret gives 250 points.
 5. Map items: collecting an item that counts for item counts gives 5 points.
 6. Barrels: destroying an explosive barrel gives 5 points.
+7. Player with 50% and more health gets kill points (with chain kill bonus) multiplied by 1.5,
+   with 100% and more - by 2.
 
 ## Acknowledgments
 
 ### Credits
 
-- Scoring system is based on [ScoreDoom](https://zdoom.org/wiki/ScoreDoom)
+- Scoring system is based on [ScoreDoom](https://zdoom.org/wiki/ScoreDoom);
+- Health multiplier is an idea of ZikShadow.

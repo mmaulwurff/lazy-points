@@ -27,14 +27,15 @@ class zc_Dispatcher : EventHandler
   override
   void OnRegister()
   {
-    _timer      = new("zc_Timer"     ).init(TICKS_IN_SECOND * 3);
-    _timerBonus = new("zc_TimerBonus").init(_timer);
-    _counter    = new("zc_Counter"   ).init(consolePlayer, _timerBonus);
-    _spawner    = new("zc_Spawner"   ).init();
+    _timer       = new("zc_Timer"      ).init(TICKS_IN_SECOND * 3);
+    _timerBonus  = new("zc_TimerBonus" ).init(_timer);
+    _healthBonus = new("zc_HealthBonus").init(consolePlayer);
+    _counter     = new("zc_Counter"    ).init(consolePlayer, _timerBonus, _healthBonus);
+    _spawner     = new("zc_Spawner"    ).init();
 
-    _view           = new("zc_View"          ).init();
-    _timerView      = new("zc_TimerView"     ).init(_timer);
-    _timerBonusView = new("zc_TimerBonusView").init(_timerBonus);
+    _view        = new("zc_View"       ).init();
+    _timerView   = new("zc_TimerView"  ).init(_timer);
+    _bonusView   = new("zc_BonusView"  ).init(_timerBonus, _healthBonus);
   }
 
   override
@@ -47,9 +48,9 @@ class zc_Dispatcher : EventHandler
 
     int y = MARGIN;
 
-    y += _view          .show(y);
-    y += _timerView     .show(y);
-    y += _timerBonusView.show(y);
+    y += _view     .show(y);
+    y += _timerView.show(y);
+    y += _bonusView.show(y);
   }
 
   override
@@ -87,12 +88,14 @@ class zc_Dispatcher : EventHandler
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  private zc_View           _view;
-  private zc_Counter        _counter;
-  private zc_Spawner        _spawner;
-  private zc_Timer          _timer;
-  private zc_TimerView      _timerView;
-  private zc_TimerBonus     _timerBonus;
-  private zc_TimerBonusView _timerBonusView;
+  private zc_Counter     _counter;
+  private zc_Spawner     _spawner;
+  private zc_Timer       _timer;
+  private zc_TimerBonus  _timerBonus;
+  private zc_HealthBonus _healthBonus;
+
+  private zc_View        _view;
+  private zc_TimerView   _timerView;
+  private zc_BonusView   _bonusView;
 
 } // class zc_Dispatcher

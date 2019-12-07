@@ -21,11 +21,12 @@ class zc_Counter
 
 // public: /////////////////////////////////////////////////////////////////////
 
-  zc_Counter init(int playerNumber, zc_TimerBonus timerBonus)
+  zc_Counter init(int playerNumber, zc_TimerBonus timerBonus, zc_HealthBonus healthBonus)
   {
     _player         = players[playerNumber];
     _oldSecretCount = 0;
     _timerBonus     = timerBonus;
+    _healthBonus    = healthBonus;
 
     return self;
   }
@@ -82,6 +83,8 @@ class zc_Counter
       ? (died.SpawnHealth() / 10 + _timerBonus.getBonus())
       : 5;
 
+    result *= _healthBonus.getMultiplier();
+
     _timerBonus.registerKill();
 
     return result;
@@ -89,8 +92,9 @@ class zc_Counter
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  private PlayerInfo    _player;
-  private int           _oldSecretCount;
-  private zc_TimerBonus _timerBonus;
+  private PlayerInfo     _player;
+  private int            _oldSecretCount;
+  private zc_TimerBonus  _timerBonus;
+  private zc_HealthBonus _healthBonus;
 
 } // class zc_Counter
