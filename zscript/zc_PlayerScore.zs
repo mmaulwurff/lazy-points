@@ -39,7 +39,7 @@ class zc_PlayerScore
   }
 
   ui
-  void show()
+  void show(double fracTic)
   {
     if (gamestate == gs_TitleLevel || _view == NULL)
     {
@@ -49,7 +49,7 @@ class zc_PlayerScore
     int y = MARGIN;
 
     y += _view     .show(y);
-    y += _timerView.show(y);
+    y += _timerView.show(y, fracTic);
     y += _bonusView.show(y);
   }
 

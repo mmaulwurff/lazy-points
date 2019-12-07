@@ -57,7 +57,7 @@ class zc_Dispatcher : EventHandler
     uint nPlayers = _playerScores.size();
     for (uint i = 0; i < nPlayers; ++i)
     {
-      _playerScores[i].show();
+      _playerScores[i].show(event.fracTic);
     }
   }
 

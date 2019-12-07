@@ -29,10 +29,15 @@ class zc_TimerView
   }
 
   ui
-  int show(int y)
+  int show(int y, double fracTic)
   {
+    if (_timer.GetCount() == 0)
+    {
+      return BAR_THICKNESS;
+    }
+
     int    screenWidth  = Screen.GetWidth();
-    double ratio        = double(_timer.GetCount()) / _timer.GetMaxCount();
+    double ratio        = (_timer.GetCount() - fracTic) / _timer.GetMaxCount();
     int    middleWidth  = screenWidth / 2;
     int    halfBarWidth = int(round(screenWidth / 8 * ratio));
 
