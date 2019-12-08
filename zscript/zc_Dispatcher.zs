@@ -62,12 +62,12 @@ class zc_Dispatcher : EventHandler
   }
 
   override
-  void WorldThingDamaged(WorldEvent event)
+  void WorldThingDamaged(WorldEvent e)
   {
     uint nPlayers = _playerScores.size();
     for (uint i = 0; i < nPlayers; ++i)
     {
-      _playerScores[i].countDamage(event.thing, event.damage, event.damageSource);
+      _playerScores[i].countDamage(e.thing, e.damage, e.damageType, e.damageSource);
     }
   }
 

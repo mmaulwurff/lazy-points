@@ -32,8 +32,13 @@ class zc_Counter
   }
 
   play
-  void countDamage(Actor damaged, int damage, Actor inflictor)
+  void countDamage(Actor damaged, int damage, Name damageType, Actor inflictor)
   {
+    if (damageType == "Telefrag")
+    {
+      damage = damaged.getSpawnHealth();
+    }
+
     if (damaged && damaged.bIsMonster && isMe(inflictor))
     {
       addPoints(damage);

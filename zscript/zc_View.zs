@@ -24,7 +24,7 @@ class zc_View
   zc_View init()
   {
     _player       = players[consolePlayer];
-    _interpolator = DynamicValueInterpolator.Create(0, 0.1, 1, 100);
+    _interpolator = DynamicValueInterpolator.Create(0, 0.1, 1, 1000000);
 
     return self;
   }

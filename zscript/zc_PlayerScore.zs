@@ -58,9 +58,9 @@ class zc_PlayerScore
   }
 
   play
-  void countDamage(Actor damaged, int damage, Actor inflictor)
+  void countDamage(Actor damaged, int damage, Name damageType, Actor inflictor)
   {
-    _counter.countDamage(damaged, damage, inflictor);
+    _counter.countDamage(damaged, damage, damageType, inflictor);
   }
 
   play
