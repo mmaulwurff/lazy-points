@@ -33,7 +33,8 @@ class zc_Dispatcher : EventHandler
   override
   void PlayerEntered(PlayerEvent event)
   {
-    _playerScores.push(new("zc_PlayerScore").init(event.playerNumber));
+    let playerScore = new("zc_PlayerScore").init(event.playerNumber);
+    _playerScores.push(playerScore);
   }
 
   override
@@ -54,6 +55,11 @@ class zc_Dispatcher : EventHandler
   override
   void RenderOverlay(RenderEvent event)
   {
+    if (menuactive)
+    {
+      return;
+    }
+
     uint nPlayers = _playerScores.size();
     for (uint i = 0; i < nPlayers; ++i)
     {
@@ -95,6 +101,16 @@ class zc_Dispatcher : EventHandler
   void WorldThingSpawned(WorldEvent event)
   {
     _spawner.spawnScoreFor(event.thing);
+  }
+
+  override
+  void WorldUnloaded(WorldEvent event)
+  {
+    uint nPlayers = _playerScores.size();
+    for (uint i = 0; i < nPlayers; ++i)
+    {
+      _playerScores[i].saveMapScore();
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////

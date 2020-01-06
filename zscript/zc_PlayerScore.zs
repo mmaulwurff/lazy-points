@@ -29,13 +29,14 @@ class zc_PlayerScore
     _timerBonus  = new("zc_TimerBonus" ).init(_timer);
     _healthBonus = new("zc_HealthBonus").init(playerNumber);
     _counter     = new("zc_Counter"    ).init(playerNumber, _timerBonus, _healthBonus);
+    _mapScore    = new("zc_MapScore"   ).init(playerNumber);
 
     if (playerNumber == consolePlayer)
     {
-      _view      = new("zc_View"     ).init();
-      _timerView = new("zc_TimerView").init(_timer);
-      _bonusView = new("zc_BonusView").init(_timerBonus, _healthBonus);
-      _tallyView = new("zc_TallyView").init();
+      _view        = new("zc_View"     ).init();
+      _timerView   = new("zc_TimerView").init(_timer);
+      _bonusView   = new("zc_BonusView").init(_timerBonus, _healthBonus);
+      _tallyView   = new("zc_TallyView").init();
     }
 
     return self;
@@ -83,6 +84,11 @@ class zc_PlayerScore
     return _playerNumber;
   }
 
+  void saveMapScore()
+  {
+    _mapScore.save();
+  }
+
 // private: ////////////////////////////////////////////////////////////////////
 
   const TICKS_IN_SECOND = 35;
@@ -97,6 +103,7 @@ class zc_PlayerScore
   private zc_TimerBonus  _timerBonus;
   private zc_HealthBonus _healthBonus;
   private zc_Counter     _counter;
+  private zc_MapScore    _mapScore;
 
   private zc_View        _view;
   private zc_TimerView   _timerView;

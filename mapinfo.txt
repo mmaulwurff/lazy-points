@@ -1,6 +1,6 @@
 gameinfo
 {
 
-  AddEventHandlers = "zc_Dispatcher"
+  AddEventHandlers = "zc_Dispatcher", "zc_StaticView"
 
 }

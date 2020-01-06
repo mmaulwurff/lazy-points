@@ -7,6 +7,7 @@ version 4.2.4
 #include "zscript/zc_TimerBonus.zs"
 #include "zscript/zc_HealthBonus.zs"
 #include "zscript/zc_Counter.zs"
+#include "zscript/zc_MapScore.zs"
 
 #include "zscript/zc_Spawner.zs"
 #include "zscript/zc_MapScoreItem.zs"
@@ -15,3 +16,8 @@ version 4.2.4
 #include "zscript/zc_TimerView.zs"
 #include "zscript/zc_BonusView.zs"
 #include "zscript/zc_TallyView.zs"
+
+#include "zscript/zc_StaticView.zs"
+#include "zscript/zc_TopHintView.zs"
+
+#include "zscript/zc_Top.zs"

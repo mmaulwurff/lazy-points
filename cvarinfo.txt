@@ -1,0 +1,1 @@
+user string lp_score = "";
