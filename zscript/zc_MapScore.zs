@@ -38,66 +38,13 @@ class zc_MapScore
       return;
     }
 
-    int        score           = players[_playerNumber].mo.score - _startingScore;
-    CVar       scoreCVar       = CVar.FindCVar("lp_score");
-    String     scoreString     = scoreCVar.GetString();
-    let        persistentScore = Dictionary.FromString(scoreString);
-    String     checksum        = Level.GetChecksum();
-    String     topString       = persistentScore.At(checksum);
+    int    score    = players[_playerNumber].mo.score - _startingScore;
+    String checksum = Level.GetChecksum();
 
-    Array<int> top;
-
-    if (topString.Length() == 0)
-    {
-      top.Push(score);
-      for (int i = 1; i < N_TOP; ++i)
-      {
-        top.Push(0);
-      }
-    }
-    else
-    {
-      Array<String> split;
-      topString.Split(split, ":");
-      for (int i = 0; i < N_TOP; ++i)
-      {
-        top.Push(split[i].ToInt());
-      }
-
-      for (int i = 0; i < N_TOP; ++i)
-      {
-        if (score > top[i])
-        {
-          top.Insert(i, score);
-          break;
-        }
-      }
-    }
-
-    String newTopString;
-    for (int i = 0; i < N_TOP; ++i)
-    {
-      newTopString.AppendFormat("%d:", top[i]);
-    }
-
-    persistentScore.Insert(checksum, newTopString);
-    console.printf("%s", persistentScore.ToString());
-    scoreCVar.SetString(persistentScore.ToString());
-  }
-
-  static
-  Dictionary getScore()
-  {
-    CVar   scoreCVar       = CVar.FindCVar("lp_score");
-    String scoreString     = scoreCVar.GetString();
-    let    persistentScore = Dictionary.FromString(scoreString);
-
-    return persistentScore;
+    zc_ScoreStorage.saveScore(checksum, score);
   }
 
 // private: ////////////////////////////////////////////////////////////////////
-
-  const N_TOP = 10;
 
   private int _playerNumber;
   private int _startingScore;

@@ -1,4 +1,4 @@
-OptionMenu zc_Top
+OptionMenu zc_TopMenu
 {
   class zc_Top
   Title "Top Points"

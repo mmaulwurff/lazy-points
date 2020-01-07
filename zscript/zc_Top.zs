@@ -30,26 +30,18 @@ class zc_Top : OptionMenu
       return;
     }
 
-    CVar   scoreCVar       = CVar.FindCVar("lp_score");
-    String scoreString     = scoreCVar.GetString();
-    let    persistentScore = Dictionary.FromString(scoreString);
-    String checksum        = Level.GetChecksum();
-    String topString       = persistentScore.At(checksum);
+    String checksum = Level.GetChecksum();
 
-    if (topString.Length() == 0)
-    {
-      String label = "No scores found. Something is wrong.";
-      addLabel(label);
-      return;
-    }
+    Array<int>    scores;
+    Array<bool>   isLatests;
+    Array<String> names;
 
-    Array<String> split;
-    topString.split(split, ":");
+    zc_ScoreStorage.loadScores(checksum, scores, isLatests, names);
 
     int maxLength = 0;
-    for (int i = 0; i < zc_MapScore.N_TOP; ++i)
+    for (int i = 0; i < zc_ScoreStorage.N_TOP; ++i)
     {
-      int length = split[i].Length();
+      int length = String.Format("%d", scores[i]).Length();
       if (length > maxLength)
       {
         maxLength = length;
@@ -57,12 +49,12 @@ class zc_Top : OptionMenu
     }
 
     // %% will become %. Adds spacing to string output.
-    String format = String.Format("%%d. %%%ds", maxLength);
+    String format = String.Format("%%d. %%%dd", maxLength);
 
-    for (int i = 0; i < zc_MapScore.N_TOP; ++i)
+    for (int i = 0; i < zc_ScoreStorage.N_TOP; ++i)
     {
-      String label = String.Format(format, i + 1, split[i]);
-      addCommand(label);
+      String label = String.Format(format, i + 1, scores[i]);
+      addCommand(label, names[i], i, isLatests[i]);
     }
   }
 
@@ -75,8 +67,8 @@ class zc_Top : OptionMenu
   }
 
   private
-  void addCommand(String label)
+  void addCommand(String label, String name, int index, bool isLatest)
   {
-    mDesc.mItems.Push(new("OptionMenuItemCommand").Init(label, ""));
+    mDesc.mItems.Push(new("OptionMenuScoreItem").Init(label, name, index, isLatest));
   }
 }

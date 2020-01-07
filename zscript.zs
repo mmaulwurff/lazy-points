@@ -8,6 +8,7 @@ version 4.2.4
 #include "zscript/zc_HealthBonus.zs"
 #include "zscript/zc_Counter.zs"
 #include "zscript/zc_MapScore.zs"
+#include "zscript/zc_ScoreStorage.zs"
 
 #include "zscript/zc_Spawner.zs"
 #include "zscript/zc_MapScoreItem.zs"
@@ -21,3 +22,4 @@ version 4.2.4
 #include "zscript/zc_TopHintView.zs"
 
 #include "zscript/zc_Top.zs"
+#include "zscript/zc_OptionMenuScoreItem.zs"
