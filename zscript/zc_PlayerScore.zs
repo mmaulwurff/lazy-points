@@ -50,6 +50,11 @@ class zc_PlayerScore
       return;
     }
 
+    if (!isVisible())
+    {
+      return;
+    }
+
     int y = MARGIN;
 
     y += _view     .show(y);
@@ -91,6 +96,19 @@ class zc_PlayerScore
 
 // private: ////////////////////////////////////////////////////////////////////
 
+  private
+  bool isVisible()
+  {
+    if (_isVisible == NULL)
+    {
+      _isVisible = CVar.GetCVar("lp_show", players[_playerNumber]);
+    }
+
+    return _isVisible.GetBool();
+  }
+
+// private: ////////////////////////////////////////////////////////////////////
+
   const TICKS_IN_SECOND = 35;
 
   const MARGIN = 10;
@@ -109,5 +127,7 @@ class zc_PlayerScore
   private zc_TimerView   _timerView;
   private zc_BonusView   _bonusView;
   private zc_TallyView   _tallyView;
+
+  transient CVar _isVisible;
 
 } // class zc_PlayerScore

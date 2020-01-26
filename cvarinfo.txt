@@ -1,1 +1,3 @@
 nosave string lp_score = "";
+
+user bool lp_show = true;
