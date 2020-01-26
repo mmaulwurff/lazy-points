@@ -30,7 +30,7 @@ class zc_TopHintView
 
   void show()
   {
-    if (gamestate != GS_Intermission)
+    if (gameState != GS_Intermission)
     {
       _showed = false;
       return;

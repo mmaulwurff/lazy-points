@@ -46,12 +46,12 @@ class OptionMenuScoreItem : OptionMenuItem
     if (_enter)
     {
       // reposition the text so that the cursor is visible when in entering mode.
-      int tlen      = Menu.OptionWidth(_name) * CleanXfac_1;
-      int newindent = screen.GetWidth() - tlen - CursorSpace();
+      int tLen      = Menu.OptionWidth(_name) * CleanXfac_1;
+      int newIndent = screen.GetWidth() - tLen - CursorSpace();
 
-      if (newindent < indent)
+      if (newIndent < indent)
       {
-        indent = newindent;
+        indent = newIndent;
       }
     }
 
@@ -87,31 +87,36 @@ class OptionMenuScoreItem : OptionMenuItem
   }
 
   override
-  bool MenuEvent (int mkey, bool fromcontroller)
+  bool MenuEvent (int mKey, bool fromController)
   {
-    if (mkey == Menu.MKEY_Enter)
+    if (mKey == Menu.MKey_Enter)
     {
       bool b;
       String s;
       [b, s] = GetString(0);
       Menu.MenuSound("menu/choose");
-      _enter = TextEnterMenu.OpenTextEnter(Menu.GetCurrentMenu(), Menu.OptionFont(), s, -1, fromcontroller);
+      _enter = TextEnterMenu.OpenTextEnter( Menu.GetCurrentMenu()
+                                          , Menu.OptionFont()
+                                          , s
+                                          , -1
+                                          , fromController
+                                          );
       _enter.ActivateMenu();
       return true;
     }
-    else if (mkey == Menu.MKEY_Input)
+    else if (mKey == Menu.MKey_Input)
     {
       SetString(0, _enter.GetText());
       _enter = NULL;
       return true;
     }
-    else if (mkey == Menu.MKEY_Abort)
+    else if (mKey == Menu.MKey_Abort)
     {
       _enter = NULL;
       return true;
     }
 
-    return Super.MenuEvent(mkey, fromcontroller);
+    return Super.MenuEvent(mkey, fromController);
   }
 
 // private: ////////////////////////////////////////////////////////////////////

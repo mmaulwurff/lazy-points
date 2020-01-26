@@ -1,4 +1,4 @@
-Alias zc_top "openmenu zc_TopMenu"
+Alias zc_top "OpenMenu zc_TopMenu"
 
 AddKeySection "Lazy Points" "zc_keys"
 AddMenuKey    "Open Score" "zc_top"

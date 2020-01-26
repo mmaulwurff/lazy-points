@@ -45,7 +45,7 @@ class zc_PlayerScore
   ui
   void show(double fracTic)
   {
-    if (gamestate == gs_TitleLevel || _view == NULL)
+    if (gameState == gs_TitleLevel || _view == NULL)
     {
       return;
     }

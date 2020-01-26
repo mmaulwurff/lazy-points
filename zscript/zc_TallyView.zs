@@ -31,7 +31,7 @@ class zc_TallyView
   {
     for (int i = 0; i < MAXPLAYERS; ++i)
     {
-      if (!playeringame[i] || i == consolePlayer)
+      if (!playerInGame[i] || i == consolePlayer)
       {
         continue;
       }

@@ -16,7 +16,7 @@
  */
 
 /**
- * Health Bonus is a multipler, which value depends on player health.
+ * Health Bonus is a multiplier, which value depends on player health.
  *
  * [100%, +inf) - x2
  * [ 50%, 100%) - x1.5

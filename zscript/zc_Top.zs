@@ -23,7 +23,7 @@ class zc_Top : OptionMenu
     Super.Init(parent, desc);
     mDesc.mItems.Clear();
 
-    if (gamestate != GS_LEVEL && gamestate != GS_INTERMISSION)
+    if (gameState != GS_LEVEL && gameState != GS_INTERMISSION)
     {
       String label = "No map detected.";
       addLabel(label);
