@@ -1,1 +1,1 @@
-server nosave string lp_score = "";
+nosave string lp_score = "";
