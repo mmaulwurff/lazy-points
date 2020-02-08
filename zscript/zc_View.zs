@@ -32,7 +32,9 @@ class zc_View
   ui
   int show(int y)
   {
-    int lineHeight = OriginalBigFont.GetHeight() * CleanYFac_1;
+    loadFont();
+
+    int lineHeight = _font.GetHeight() * CleanYFac_1;
 
     if (!_player.mo)
     {
@@ -44,9 +46,9 @@ class zc_View
     _interpolator.update(_player.mo.score);
 
     String scoreString = String.Format("%d", _interpolator.getValue());
-    int    scoreWidth  = OriginalBigFont.StringWidth(scoreString) * CleanXFac_1;
+    int    scoreWidth  = _font.StringWidth(scoreString) * CleanXFac_1;
     int    x           = (Screen.GetWidth() - scoreWidth) / 2;
-    Screen.DrawText(OriginalBigFont, Font.CR_Blue, x, y, scoreString, DTA_CleanNoMove_1, true);
+    Screen.DrawText(_font, Font.CR_Blue, x, y, scoreString, DTA_CleanNoMove_1, true);
 
     return lineHeight * 2;
   }
@@ -56,6 +58,8 @@ class zc_View
   const MARGIN = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
+
+  mixin zc_FontUser;
 
   private PlayerInfo _player;
 

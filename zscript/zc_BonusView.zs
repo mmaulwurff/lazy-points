@@ -32,7 +32,9 @@ class zc_BonusView
   ui
   int show(int y)
   {
-    int lineHeight = OriginalBigFont.GetHeight() * CleanYFac_1;
+    loadFont();
+
+    int lineHeight = _font.GetHeight() * CleanYFac_1;
     y += MARGIN + lineHeight / 2;
 
     int    bonus      = _timerBonus.getBonus();
@@ -55,9 +57,9 @@ class zc_BonusView
       bonusString.appendFormat("x%.1f", multiplier);
     }
 
-    int bonusWidth = OriginalBigFont.StringWidth(bonusString) * CleanXFac_1;
+    int bonusWidth = _font.StringWidth(bonusString) * CleanXFac_1;
     int x          = (Screen.GetWidth() - bonusWidth) / 2;
-    Screen.DrawText(OriginalBigFont, Font.CR_Blue, x, y, bonusString, DTA_CleanNoMove_1, true);
+    Screen.DrawText(_font, Font.CR_Blue, x, y, bonusString, DTA_CleanNoMove_1, true);
 
     return lineHeight * 2;
   }
@@ -67,6 +69,8 @@ class zc_BonusView
   const MARGIN = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
+
+  mixin zc_FontUser;
 
   private zc_TimerBonus  _timerBonus;
   private zc_HealthBonus _healthBonus;

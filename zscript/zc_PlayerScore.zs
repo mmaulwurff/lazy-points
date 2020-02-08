@@ -25,7 +25,7 @@ class zc_PlayerScore
   {
     _playerNumber = playerNumber;
 
-    _timer       = new("zc_Timer"      ).init(TICKS_IN_SECOND * 3);
+    _timer       = new("zc_Timer"      ).init(TICKS_IN_SECOND * zc_Parameters.BONUS_COUNTDOWN);
     _timerBonus  = new("zc_TimerBonus" ).init(_timer);
     _healthBonus = new("zc_HealthBonus").init(playerNumber);
     _counter     = new("zc_Counter"    ).init(playerNumber, _timerBonus, _healthBonus);
@@ -55,7 +55,7 @@ class zc_PlayerScore
       return;
     }
 
-    int y = MARGIN;
+    int y = zc_Parameters.Y_OFFSET;
 
     y += _view     .show(y);
     y += _timerView.show(y, fracTic);
@@ -110,8 +110,6 @@ class zc_PlayerScore
 // private: ////////////////////////////////////////////////////////////////////
 
   const TICKS_IN_SECOND = 35;
-
-  const MARGIN = 10;
 
 // private: ////////////////////////////////////////////////////////////////////
 

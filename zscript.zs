@@ -23,3 +23,6 @@ version 4.3.3
 
 #include "zscript/zc_Top.zs"
 #include "zscript/zc_OptionMenuScoreItem.zs"
+
+#include "zscript/zc_FontUser.zs"
+#include "zscript/zc_Parameters.zs"
