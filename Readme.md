@@ -1,3 +1,5 @@
+Project moved to https://github.com/mmaulwurff/doom-toolbox/
+
 # Scoring for GZDoom
 
 Summary: do things, get points!
